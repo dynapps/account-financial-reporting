@@ -101,11 +101,15 @@ class TrialBalanceReportWizard(models.TransientModel):
     @api.multi
     def button_export_pdf(self):
         self.ensure_one()
+        if not self.account_ids:
+            self.onchange_type_accounts_only()
         return self._export()
 
     @api.multi
     def button_export_xlsx(self):
         self.ensure_one()
+        if not self.account_ids:
+            self.onchange_type_accounts_only()
         return self._export(xlsx_report=True)
 
     def _prepare_report_trial_balance(self):
